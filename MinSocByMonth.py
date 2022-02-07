@@ -80,26 +80,31 @@ logging.debug("Programm MinSoc by Month wurde gestartet")
 
 client.loop_start()
 time.sleep(1)
-print(minsoclimit)
-print(datetime.datetime.now())
+print("Aktueller MinSoc: " + str(minsoclimit))
 aktuellermonat = datetime.datetime.now().strftime("%m")
-print(aktuellermonat)
+print("Der aktuelle Monat: " + str(aktuellermonat))
 
 while (1):
     m = 1+m
-    time.sleep(5)
+    time.sleep(1)
     if aktuellermonat in minsoc1:
-        print("minsoc1")
+        print("In diesen Monat sollte: " + str(minsocp1) + "% gesetzt sein")
         client.publish("W/" + cerboserial + "/settings/0/Settings/CGwacs/BatteryLife/MinimumSocLimit",
                                              '{"value": ' + minsocp1 + '}')
     elif aktuellermonat in minsoc2:
-        print("minsoc2")
+        print("In diesen Monat sollte: " + str(minsocp2) + "% gesetzt sein")
         client.publish("W/" + cerboserial + "/settings/0/Settings/CGwacs/BatteryLife/MinimumSocLimit",
                                             '{"value": ' + minsocp2 + '}')
     elif aktuellermonat in minsoc3:
-        print("minsoc3")
+        print("In diesen Monat sollte: " + str(minsocp3) + "% gesetzt sein")
         client.publish("W/" + cerboserial + "/settings/0/Settings/CGwacs/BatteryLife/MinimumSocLimit",
                                             '{"value": ' + minsocp3 + '}')
     else:
         print("?, der aktuelle Monat wurde nicht in einer der 3 Listen gefunden, schau nochmal oben, ob du alle Monate vergeben hast")
 
+    now = datetime.datetime.now
+    to = (now() + datetime.timedelta(days = 1)).replace(hour=13, minute=0, second=0)
+    sekundenbisnext = ((to-now()).seconds)
+    stundenbisnext = str(datetime.timedelta(seconds = sekundenbisnext))
+    print("Schlafe nun: " + stundenbisnext + " Stunden bis um 13Uhr.")
+    time.sleep((to-now()).seconds)
