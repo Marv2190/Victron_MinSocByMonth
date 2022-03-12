@@ -12,8 +12,8 @@ broker_address = "192.168.1.xxx"
 #  Monate sind 01 für Jan usw.
 
 minsoc1 = ["01", "12"]
-minsoc2 = ["02", "03", "10", "11"]
-minsoc3 = ["04", "05", "06", "07", "08", "09"]
+minsoc2 = ["02", "10", "11"]
+minsoc3 = ["04", "03", "05", "06", "07", "08", "09"]
 
 #  MinSoc limit
 
@@ -80,11 +80,11 @@ logging.debug("Programm MinSoc by Month wurde gestartet")
 
 client.loop_start()
 time.sleep(1)
-print("Aktueller MinSoc: " + str(minsoclimit))
-aktuellermonat = datetime.datetime.now().strftime("%m")
-print("Der aktuelle Monat: " + str(aktuellermonat))
 
 while (1):
+    print("Aktueller MinSoc: " + str(minsoclimit))
+    aktuellermonat = datetime.datetime.now().strftime("%m")
+    print("Der aktuelle Monat: " + str(aktuellermonat))
     m = 1+m
     time.sleep(1)
     if aktuellermonat in minsoc1:
